@@ -1,79 +1,58 @@
-# MyRent
+<div align='center'>
+<img width="419" alt="logo" src="https://user-images.githubusercontent.com/45114413/177094595-9a39685f-6982-4528-8135-11d9850d1259.png">
+    <p align="center">
+    A web application that gathers you all rental information at once.
+    <br />
+    <br />
+    <a href="#">View Demo</a>
+    ·
+    <a href="#">Report Bug</a>
+    ·
+    <a href="#">Request Feature</a>
+  </p>
 
-Get all rental information at once!
+</div>
 
-![demo](https://user-images.githubusercontent.com/45114413/177070555-534ea7b8-c388-46b0-9b91-879a2776d301.gif)
+## About The Project
 
-## Description
+<p align='center'>
+<img src='https://user-images.githubusercontent.com/45114413/177070555-534ea7b8-c388-46b0-9b91-879a2776d301.gif' alt='demo gif'>
+</p>
 
 An in-depth paragraph about your project and overview of use.
 
-### Built With
-
-Frontend
+### Frontend
 
 - React.js
 - Redux
 
-Backend
+### Backend
 
 - flask
 - requests
 
-## Getting Started
+## Deployment
 
-### Dependencies
+### Run in local
 
-- Describe any prerequisites, libraries, OS version, etc., needed before installing program.
-- ex. Windows 10
+1. Clone the repository
+   ```bash
+   git clone https://github.com/kamelliao/myrent.git
+   cd myrent
+   ```
+2. Start backend server
+   ```bash
+   cd ./backend
+   flask run
+   ```
+3. Start frontend server
+   ```bash
+   cd ./frontend
+   npm run
+   ```
+4. Open the browser and go to http://localhost:3000
+5. Start your journey!
 
-### Installing
+## Roadmap
 
-- How/where to download your program
-- Any modifications needed to be made to files/folders
-
-### Executing program
-
-- How to run the program
-- Step-by-step bullets
-
-```
-code blocks for commands
-```
-
-## Help
-
-Any advise for common problems or issues.
-
-```
-command to run if program contains helper info
-```
-
-## Authors
-
-Contributors names and contact info
-
-ex. Dominique Pizzie  
-ex. [@DomPizzie](https://twitter.com/dompizzie)
-
-## Version History
-
-- 0.2
-  - Various bug fixes and optimizations
-  - See [commit change]() or See [release history]()
-- 0.1
-  - Initial Release
-
-## License
-
-This project is licensed under the [NAME HERE] License - see the LICENSE.md file for details
-
-## Acknowledgments
-
-Inspiration, code snippets, etc.
-
-- [awesome-readme](https://github.com/matiassingers/awesome-readme)
-- [PurpleBooth](https://gist.github.com/PurpleBooth/109311bb0361f32d87a2)
-- [dbader](https://github.com/dbader/readme-template)
-- [zenorocha](https://gist.github.com/zenorocha/4526327)
-- [fvcproductions](https://gist.github.com/fvcproductions/1bfc2d4aecb01a834b46)
+## Acknowledgements
