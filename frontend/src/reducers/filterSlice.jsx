@@ -6,7 +6,7 @@ const filterSlice = createSlice({
         src: [],
         city: '',
         section: [],
-        price: [],
+        price: '',
     },
     // TODO: use immer
     reducers: {
@@ -86,34 +86,9 @@ const filterSlice = createSlice({
         },
         setPrice: {
             reducer(state, action) {
-                switch (action.payload.type) {
-                    case 'add': {
-                        return {
-                            ...state,
-                            price: [...state.price, action.payload.value],
-                        };
-                    }
-                    case 'remove': {
-                        return {
-                            ...state,
-                            price: state.price.filter(id => id !== action.payload.value),
-                        };
-                    }
-                    case 'reset': {
-                        return {
-                            ...state,
-                            price: [],
-                        };
-                    }
-                    default:
-                        throw new Error(
-                            `Action type not exists: ${action.payload.type}.`
-                        );
-                }
-            },
-            prepare(type, value) {
                 return {
-                    payload: { type, value },
+                    ...state,
+                    price: action.payload,
                 };
             },
         },
@@ -124,7 +99,7 @@ const filterSlice = createSlice({
                     src: [],
                     city: '',
                     section: [],
-                    price: [],
+                    price: '',
                 };
             },
         },

@@ -5,7 +5,7 @@ from flask import Flask, request, session
 
 from crawler import Crawler591, CrawlerDDRoom
 from house_item import HouseItem
-from filter_item import FilterItem
+from filters.filter_item import FilterItem
 
 app = Flask(__name__)
 app.secret_key = b'4fjlkjaie3r334feaadw'

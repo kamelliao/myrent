@@ -5,10 +5,10 @@ import click
 import requests
 
 from house_item import HouseItem
-from filter_item import FilterItem
+from filters.filter_item import FilterItem
 
 HEADERS = {
-    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36", 
+    "User-Agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/101.0.4951.64 Safari/537.36",
 }
 
 
@@ -31,10 +31,10 @@ class Crawler:
 
     def get(self):
         raise NotImplementedError
-    
+
     def fetch(self):
         raise NotImplementedError
-    
+
     def status(self):
         if not self._result:
             click.secho('Error: Data not crawled, call .get() first.')
@@ -53,7 +53,7 @@ class Crawler591(Crawler):
         r = self._session.get(self.host, headers=HEADERS)
         soup = BeautifulSoup(r.text, 'html.parser')
         token = soup.select_one('meta[name="csrf-token"]')
-        
+
         headers = HEADERS.copy()
         headers['X-CSRF-TOKEN'] = token.get('content')
 
@@ -62,9 +62,11 @@ class Crawler591(Crawler):
     def get(self, filters: Dict = None, sorters: Dict = None):
         url = self.api
         if filters:
-            url += '&'.join([f"{key}={','.join([str(val) for val in value])}" for key, value in filters.items()])
+            url += '&'.join([f"{key}={','.join([str(val) for val in value])}" for key,
+                            value in filters.items()])
         if sorters:
-            url += '&'.join([f"{key}={value}" for key, value in sorters.items()])
+            url += '&'.join([f"{key}={value}" for key,
+                            value in sorters.items()])
 
         self._result = self._session.get(url, headers=self._headers).json()
         self._status = self._result['status']
@@ -80,29 +82,26 @@ class CrawlerDDRoom(Crawler):
             host='https://dd-room.com/',
             api='https://api.dd-room.com/api/v1/search?category=house'
         )
-    
+
     def _set_headers(self):
         return HEADERS
-    
+
     def get(
         self,
         filter_item: FilterItem
     ):
         url = self.api
-        
+
         for key, value in filter_item.to_ddroom().items():
             if not value:
                 continue
-            if isinstance(value, list):
-                url += f"&{key}={','.join(value)}"
-            else:
-                url += f"&{key}={value}"
+            url += f"&{key}={value}"
 
         print(url)
 
         self._result = self._session.get(url, headers=self._headers).json()
         self._status = self._result['message']
         self.status()
-    
+
     def fetch(self):
         return [HouseItem.from_ddroom(item).to_dict() for item in self._result['data']['search']['items']]

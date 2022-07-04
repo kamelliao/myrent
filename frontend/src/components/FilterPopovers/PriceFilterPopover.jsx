@@ -16,9 +16,8 @@ import { BsChevronDown } from 'react-icons/bs';
 import price_range from '../../data/price_range';
 
 export default function PriceFilterPopover({ price, onSetPrice }) {
-    const handleAddPrice = e => onSetPrice('add', e.target.innerText);
-    const handleRemovePrice = e => onSetPrice('remove', e.target.innerText);
-    const handleResetAllPrice = () => onSetPrice('reset');
+    const handleSetPrice = e => onSetPrice(e.target.innerText);
+    const handleResetAllPrice = () => onSetPrice('');
 
     return (
         <HStack gap={2}>
@@ -27,7 +26,7 @@ export default function PriceFilterPopover({ price, onSetPrice }) {
                 {({ isOpen, onClose }) => (
                     <>
                         <PopoverTrigger>
-                            {price.length === 0 ? (
+                            {price === '' ? (
                                 <Button size="sm" rightIcon={<BsChevronDown />}>
                                     選擇價錢範圍
                                 </Button>
@@ -37,27 +36,22 @@ export default function PriceFilterPopover({ price, onSetPrice }) {
                                     rightIcon={<BsChevronDown />}
                                     color="teal.500"
                                 >
-                                    {price.length <= 1
-                                        ? price.join('、')
-                                        : `已選擇 ${price.length} 範圍`}
+                                    {price}
                                 </Button>
                             )}
                         </PopoverTrigger>
                         <PopoverContent>
                             <PopoverArrow />
                             <PopoverBody>
-                                <ButtonGroup size="xs" isAttached>
-                                    {price_range.map(obj =>
-                                        price.includes(obj) ? (
-                                            <Button onClick={handleRemovePrice} isActive>
-                                                {obj}
-                                            </Button>
-                                        ) : (
-                                            <Button onClick={handleAddPrice}>
-                                                {obj}
-                                            </Button>
-                                        )
-                                    )}
+                                <ButtonGroup size="xs" onClick={onClose} isAttached>
+                                    {price_range.map(obj => (
+                                        <Button
+                                            onClick={handleSetPrice}
+                                            isActive={obj === price}
+                                        >
+                                            {obj}
+                                        </Button>
+                                    ))}
                                 </ButtonGroup>
                             </PopoverBody>
                             <PopoverFooter display="flex" justifyContent="space-between">
